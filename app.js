@@ -3,6 +3,8 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
+const exphbs  = require('express-handlebars');
+
 
 //Load User model
 require('./models/User');
@@ -12,6 +14,7 @@ require('./config/passport')(passport);
 
 //Load Routes
 const auth = require('./routes/auth');
+const index = require('./routes/index');
 
 //Load Keys
 const keys = require('./config/keys');
@@ -26,9 +29,12 @@ mongoose.connect(keys.mongoURI)
 
 const app = express();
 
-app.get('/', (req, res) => {
-  res.send('It works...');
-});
+// Handlebars Middleware
+app.engine('handlebars', exphbs({
+  defaultLayout: 'main'
+}));
+app.set('view engine', 'handlebars');
+
 
 app.use(cookieParser());
 //Express session middleware
@@ -49,7 +55,8 @@ app.use((req, res, next) => {
 })
 
 //Use Routes
-app.use('/auth', auth)
+app.use('/auth', auth);
+app.use('/', index);
 
 const port = process.env.PORT || 5000;
 

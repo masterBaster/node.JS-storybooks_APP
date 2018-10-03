@@ -41,5 +41,13 @@ module.exports = function(passport){
       })
 
     })
-  )
+  );
+  //create unique cookie
+  passport.serializeUser((user, done) => {
+    done(null, user.id);
+  });
+  //decode cookie and retrieve user information
+  passport.deserializeUser((id, done) => {
+    User.findById(id).then(user => done(null, user))
+  });
 } 

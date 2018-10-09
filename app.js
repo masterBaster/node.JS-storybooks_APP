@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const mongoose = require('mongoose');
 const passport = require('passport');
 const session = require('express-session');
@@ -48,6 +49,9 @@ app.use(session({
 //Passport middleware
 app.use(passport.initialize());
 app.use(passport.session());
+
+//Set static folder
+app.use(express.static(path.join(__dirname, 'public')));
 
 //Set global vars
 app.use((req, res, next) => {

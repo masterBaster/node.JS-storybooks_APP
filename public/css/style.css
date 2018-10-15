@@ -15,4 +15,19 @@ main {
 footer{
   margin-top: 20px;
 }
-    
+
+.story-text{
+  height: 100px;
+}
+
+.card-content{
+  max-height: 200px;
+}
+
+.dash-status{
+  text-transform: capitalize;
+}
+
+.fa-trash{
+  font-size: 25px;
+}

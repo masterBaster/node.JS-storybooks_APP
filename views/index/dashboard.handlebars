@@ -18,7 +18,12 @@
       <td><span class="card-title">{{formatDate date 'MMMM do YYYY, h:mm:ss a'}}</span></td>
       <td><span class="dash-status">{{status}}</span></td>
       <td><a class="btn left-align" href="/stories/edit/{{id}}"><i class="fa fa-pencil"></i></a></td>
-      <td><form action="/stories/{{id}}" method="POST" id="delete-form"><button type="submit" class="btn left-align red"><i class="fa fa-trash"></i></button></form></td>
+      <td>
+        <form action="/stories/{{id}}?_method=DELETE" method="POST" id="delete-form">
+          <input type="hidden" name="_method" value="DELETE">
+          <button type="submit" class="btn left-align red"><i class="fa fa-trash"></i></button>
+        </form>
+      </td>
     </tr>
     {{/each}}
   </tbody>

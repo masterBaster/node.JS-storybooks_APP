@@ -1,11 +1,12 @@
 const express = require('express');
 const path = require('path');
+const exphbs = require('express-handlebars');
 const bodyParser = require('body-parser');
+const methodOverride = require('method-override');
 const mongoose = require('mongoose');
-const passport = require('passport');
-const session = require('express-session');
 const cookieParser = require('cookie-parser');
-const exphbs  = require('express-handlebars');
+const session = require('express-session');
+const passport = require('passport');
 
 //Load User model
 require('./models/User');
@@ -24,10 +25,10 @@ const keys = require('./config/keys');
 
 //Handlebars helpers
 const {
-  truncate, 
-  stripTags, 
-  formatDate, 
-  select 
+  truncate,
+  stripTags,
+  formatDate,
+  select
 } = require('./helpers/hbs');
 
 //Map global Promises
@@ -40,14 +41,18 @@ mongoose.connect(keys.mongoURI)
 
 const app = express();
 
+//Body parser middleware
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+//Method override middleware
+app.use(methodOverride('_method'));
 
 // Handlebars Middleware
 app.engine('handlebars', exphbs({
   helpers: {
     truncate: truncate,
-    stripTags: stripTags, 
+    stripTags: stripTags,
     formatDate: formatDate,
     select: select
   },
@@ -74,7 +79,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 //Set global vars
 app.use((req, res, next) => {
   res.locals.user = req.user || null;
-    next();
+  next();
 })
 
 //Use Routes

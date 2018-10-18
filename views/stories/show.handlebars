@@ -25,6 +25,15 @@
           {{/if}}
         </div>
       </div>
+      {{#each story.comments}}
+        <div class="card">
+          <div class="card-content">
+            <h5>{{commentBody}}</h5>
+              <small>Posted: {{commentDate}}</small> 
+              <!--Alert--><div class="card-content"> {{commentUser.firstName}}</div>
+          </div>
+        </div>
+      {{/each}}
     {{/if}}
 
   </div>
